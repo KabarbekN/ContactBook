@@ -88,7 +88,7 @@ public class ContactRepository implements IContactRepository {
         }
     }
 
-    public Contact updateContact(Integer id, Contact contact){
+    public void updateContact(Integer id, Contact contact){
        Connection connection = null;
        try {
            connection = idb.getConnection();
@@ -97,21 +97,11 @@ public class ContactRepository implements IContactRepository {
            preparedStatement.setString(1, contact.getPhoneNumber());
            preparedStatement.setString(2, contact.getName());
            preparedStatement.setInt(3, id);
-           ResultSet resultSet =  preparedStatement.executeQuery();
-           Contact updatedContact = new Contact();
-           while (resultSet.next()){
-               updatedContact.setId(resultSet.getInt("id"));
-               updatedContact.setPhoneNumber(resultSet.getString("phoneNumber"));
-               updatedContact.setName(resultSet.getString("name"));
-           }
-
-           return updatedContact;
-
-
+            preparedStatement.execute();
        } catch (SQLException e){
            e.printStackTrace();
        }
-       return null;
+
     }
 
     public void deleteContact(Integer id){

@@ -33,8 +33,9 @@ public class ContactController {
         return "Contact created";
     }
 
-    public Contact updateContact(Integer id, String phoneNumber, String name) {
-        return contactRepository.updateContact(id, new Contact(phoneNumber, name));
+    public String updateContact(Integer id, String phoneNumber, String name) {
+        contactRepository.updateContact(id, new Contact(phoneNumber, name));
+        return "Contact updated";
     }
 
     public String deleteContact(Integer id) {
